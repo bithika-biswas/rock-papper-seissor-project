@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rock papper scessior</title>
+</head>
+<style>
+  body{
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .container{
+    margin: 24px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 24px;
+
+  }
+  .rock{
+    background-color: wheat;
+    border-radius: 50%;
+    transition: transform 2sc;
+    
+  }
+  
+  .rock img{
+    height: 100px;
+    filter: drop-shadow(8px 8px 10px) ;
+    filter: contrast(200%);
+    cursor: pointer;
+    border-radius: 50%;
+
+  }
+  .rock img:hover{
+    opacity: 0.5;
+    
+  }
+  .papper{
+    background-color: wheat;
+    border-radius: 50%;
+  }
+  .papper img{
+    height: 100px;
+    filter: drop-shadow(8px 8px 10px) ;
+    filter: contrast(200%);
+    cursor: pointer;
+    border-radius: 50%;
+
+    
+    
+  }
+  .papper img:hover{
+    opacity: 0.5;
+
+  }
+  .scessior{
+    background-color: wheat;
+    border-radius: 50%;
+  }
+  .scessior img{
+    height: 100px;
+    filter: drop-shadow(8px 8px 10px) ;
+    filter: contrast(200%);
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .scessior img:hover{
+    opacity: 0.5;
+  }
+  .user{
+    color: white;
+
+  }
+  .computer{
+    color: aliceblue;
+  }
+  .hide{
+    display: none;
+  }
+  .restart{
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background-color: rgb(195, 142, 142);
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .result{
+    color: white;
+  }
+  .scor{
+    color: white;
+  }
+  .date{
+    color: yellow;
+  }
+</style>
+<body>
+  <h1 class="date"></h1>
+  <div class="container">
+    <button class="rock" onclick="
+    let computeruser= computerchoice();
+    let result= getresult('rock',computeruser);
+    showresult('rock',computeruser,result);    
+    "><img src="rock.png" alt="" srcset=""></button>
+    <button class="papper" onclick=" 
+     computeruser= computerchoice();
+     result=getresult('papper',computeruser)
+     showresult('papper',computeruser,result);
+   " ><img src="papper.png" alt=""></button>
+    <button class="scessior" onclick=" 
+    computeruser=computerchoice();  
+    result=getresult('scessior',computeruser)
+    showresult('scessior',computeruser,result);
+   "><img src="scessior.png" alt=""></button>
+   
+  </div>
+  <button class="restart" onclick="
+  document.querySelector('.user').classList.add('hide');
+  document.querySelector('.computer').classList.add('hide');
+  document.querySelector('.result').classList.add('hide');
+  document.querySelector('.scor').classList.add('hide');
+  score={
+    win:0,
+    tie:0,
+    lost:0,
+
+  }
+  
+  ">restart</button>
+<h1 class="user hide"></h1>
+    <h1 class="computer hide"></h1>
+    <h1 class="result hide"></h1>
+    <h1 class="scor hide"></h1>
+
+
+
+
+
+
+  <script>
+    let d = new Date();
+    document.querySelector('.date').innerHTML= d;
+    
+
+
+
+    let score={
+      win:0,
+      tie:0,
+      lost:0,
+    }
+   function displayscore(){
+
+      return `win:${score.win}, lost:${score.lost}, and draw${score.tie}`
+      
+    } 
+    function computerchoice(){
+     randumnum= Math.random()*3;
+ 
+ if(randumnum>0&&randumnum<=1){
+      return 'rock';
+    }else if(randumnum>1&&randumnum<=2){
+     return'papper';
+    }else{
+      return 'scessior';
+    }
+    }
+    function getresult(usermove,computermove){
+      if (usermove==="rock") {
+        if(computermove==='scessior'){
+          score.win++;
+    return'user is winner';
+    }else if(computermove==='papper'){
+           score.lost++;
+      return'computeruser is winner ';
+    }else if(computermove==='rock'){
+      score.tie++;
+      return'its draw';
+    }
+   
+      }else if(usermove==="papper"){
+        if(computermove==='rock'){
+          score.win++;
+      return'user is winner';
+    }else if(computermove==='scessior'){
+      score.lost++;
+      return 'computeruser is winner ';
+    }else if(computermove==='papper'){
+      score.tie++;
+      return'its draw';
+    }
+      }else if(usermove==="scessior"){
+
+        if(computermove==='papper'){
+          score.win++;
+      return'user is winner';
+    }else if(computermove==='rock'){
+      score.lost++;
+      return'computeruser is winner ';
+    }else if(computermove==='scessior'){
+      score.tie++;
+      return'its draw';
+    }
+
+      }
+    }
+    // function showresult(usermove,computermove,result){
+    //   alert(`user choose ${usermove} and computer choose ${computermove} and result is
+      
+    //   ${result} and
+    //   ${score.displayscore()} `)
+  // }
+    function showresult(usermove,computermove,result){
+    document.querySelector(".user").innerHTML=`you chooes ${usermove}`;
+    document.querySelector(".user").classList.remove("hide");
+    document.querySelector(".computer").innerHTML=`computer choose ${computermove}`;
+    document.querySelector(".computer").classList.remove("hide");
+    document.querySelector(".result").innerHTML=`result is ${result}`
+    document.querySelector(".result").classList.remove("hide");
+    document.querySelector(".scor").innerHTML=`score is ${displayscore()}`;
+    document.querySelector(".scor").classList.remove("hide");
+   }
+   
+    
+  </script>
+  
+</body>
+</html>
